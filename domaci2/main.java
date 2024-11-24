@@ -6,12 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class main {
     public static void main(String[] args) {
     
         Skladiste skladiste = new Skladiste(10);
-        String fajl = "raspored.txt";
+        String fajl = "C:/Users/HP/eclipse-workspace/domaci1distribuiranemreze/raspored.txt";
         
         for (int i = 0; i < 20; i++) {
             new Proizvodjac(skladiste, 500, 1000).start();
@@ -23,6 +24,12 @@ public class main {
         
         upisiRaspored(fajl);
         List<List<Integer>> rasporedi = ucitajRaspored(fajl);
+        
+        if (rasporedi.isEmpty()) {
+            System.out.println("Raspored nije pronadjen. Generisem novi raspored...");
+        } else {
+            System.out.println("Raspored uspesno ucitan iz fajla.");
+        }
         
         for(int i = 0; i < rasporedi.size(); i++) {
             new Izvestac(skladiste, rasporedi.get(i)).start();
@@ -56,21 +63,20 @@ public class main {
                 ex.printStackTrace();
             }
         }
-        
         return rasporedi;
     }
     private static void upisiRaspored(String fajl) {
-        try {
-            FileWriter writer = new FileWriter(fajl);
-            
+        Random random = new Random();
+        try (FileWriter writer = new FileWriter(fajl)) {
             for (int i = 1; i <= 100; i++) {
-                int vreme = i; 
-                int izvestacId = (i % 3) + 1; 
-                writer.write(vreme + " Izvestac" + izvestacId + "\n");
-            }            
-            writer.close();
+                int izvestacBroj = random.nextInt(3) + 1;
+                writer.write(i + " Izvestac" + izvestacBroj + "\n");
+            }
+            writer.flush();
+            System.out.println("Raspored je uspesno generisan u fajlu: " + fajl);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Greska prilikom pisanja fajla: " + e.getMessage());
         }
     }
+
 }
