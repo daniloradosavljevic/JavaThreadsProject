@@ -37,9 +37,9 @@ public class main {
     	 System.out.println("Stanje rampe nakon zatvaranja: ");
          System.out.println(rampa);
 
-         System.out.println("Uništavanje rampe...");
+         System.out.println("Unistavanje rampe...");
          rampa.unisti();
-	
+         System.out.println("Gotovo izvrsavanje programa.");
     	
     	
     	

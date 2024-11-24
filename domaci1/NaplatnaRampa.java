@@ -13,14 +13,14 @@ public class NaplatnaRampa extends Thread {
 	private int ukupnoNaplaceno; 
 	private Random random;
 	
-	public NaplatnaRampa(String naziv,int brojStanica,NaplatnaStanica stranicaZaKopiranje, double tsr) {
+	public NaplatnaRampa(String naziv,int brojStanica,NaplatnaStanica stanicaZaKopiranje, double tsr) {
 		this.naziv = naziv;
 		this.tsr = tsr;
 		this.stanice = new ArrayList<>();
 		this.random = new Random();
 		
 		for(int i = 0; i < brojStanica; i++ ) {
-			this.stanice.add(stranicaZaKopiranje.kopirajStanicu());
+			this.stanice.add(stanicaZaKopiranje.kopirajStanicu());
 		}
 	}
 	
